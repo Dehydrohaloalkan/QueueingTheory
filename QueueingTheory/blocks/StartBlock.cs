@@ -1,27 +1,11 @@
 ﻿namespace QueueingTheory.blocks;
 
-public class StartBlock : ITickable
+public class StartBlock : TickableBase
 {
-    public ITickable NextBlock { get; set; }
-    public int WorkTicks { get; set; } = -1;
-    public int RequestCount;
+    // public int WorkTicks { get; set; } = -1;
 
-    public void NextTick()
+    public override void NextTick(Func<Request, bool> tryToSendRequest)
     {
-        if (!NextBlock.CanAccept()) return;
-        NextBlock.Accept(new Request());
-        RequestCount++;
+        tryToSendRequest(new Request());
     }
-
-    public void Accept(Request req)
-    {
-        return;
-    }
-
-    public bool CanAccept()
-    {
-        return false;
-    }
-
-    public int GetRequestCount() => 0;
 }

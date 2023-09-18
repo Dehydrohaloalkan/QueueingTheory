@@ -4,6 +4,8 @@ namespace QueueingTheory.blocks;
 
 public class DiscardBlock : ITickable
 {
+    
+    
     public ITickable NextBlock { get; set; }
     public int WorkTicks { get; set; }
     public ITickable LastBlock { get; set; }
@@ -13,6 +15,7 @@ public class DiscardBlock : ITickable
     private int _timer;
     private readonly double _probability;
     private readonly Random _random;
+    private bool _canAccept;
 
     public DiscardBlock(int timerMax)
     {
@@ -30,12 +33,12 @@ public class DiscardBlock : ITickable
         _request = null;
     }
     
-    public void NextTick()
+    public void NextTick(Func<Request, bool> tryToSendRequest)
     {
         if (_request == null) return;
         
-        _request.TimeInSystem++;
-        WorkTicks++;
+        // _request.TimeInSystem++;
+        // WorkTicks++;
         
         if (_isWithTimer)
         {
@@ -59,10 +62,9 @@ public class DiscardBlock : ITickable
         if (_isWithTimer) _timer = 0;
     }
 
-    public bool CanAccept()
-    {
-        return _request == null;
-    }
+    public bool CanAccept => _request == null;
+
+    public bool HandlingRequest => _request != null;=
 
     public int GetRequestCount() => _request != null ? 1 : 0;
 }

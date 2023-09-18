@@ -18,7 +18,7 @@ public class Accumulator : ITickable
 
     public void NextTick()
     {
-        Snapshots.Add(_queue.Count);
+        // Snapshots.Add(_queue.Count);
         foreach (var request in _queue)
         {
             request.TimeIQueue++;

@@ -1,4 +1,5 @@
-﻿using QueueingTheory.blocks;
+﻿using QueueingTheory.Analytics;
+using QueueingTheory.blocks;
 
 namespace QueueingTheory;
 
@@ -8,6 +9,12 @@ public class BlockQueue
     private readonly List<ITickable> _reverseBlocks;
     private int _tickCount;
     private readonly List<int> _snapshots;
+
+    private readonly List<IAnalytics> _analytics = new()
+    {
+        new EnterRequestAnalytics(),
+        new ExitRequestAnalytics()
+    };
     
     public BlockQueue()
     {
@@ -41,10 +48,33 @@ public class BlockQueue
         _tickCount = requestCount;
         for (var i = 0; i < requestCount; i++)
         {
-            foreach (var block in _reverseBlocks)
+            for (var blockIndex = 0; blockIndex < _reverseBlocks.Count; blockIndex++)
             {
-                block.NextTick();
+                var block = _reverseBlocks[blockIndex];
+                var nextBlock = blockIndex + 1 < _reverseBlocks.Count ? _reverseBlocks[blockIndex++] : null;
+                
+                var requestIsSent = false;
+                
+                _analytics.ForEach(a => a.AnalyzeBeforeTick(block, i));
+
+                block.NextTick(request =>
+                {
+                    if (nextBlock is not null && nextBlock.CanAccept)
+                    {
+                        nextBlock.Accept(request);
+                        return requestIsSent = true;
+                    }
+
+                    return requestIsSent = false;
+                });
+
+                _analytics.ForEach(a => a.AnalyzeAfterTick(
+                    block,
+                    nextBlock,
+                    requestIsSent,
+                    i));
             }
+
             _snapshots.Add(_blocks
                 .Select(block => block.GetRequestCount())
                 .Aggregate((sum, count) => sum + count));
