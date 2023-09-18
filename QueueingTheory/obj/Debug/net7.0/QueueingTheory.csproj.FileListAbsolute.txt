@@ -1,0 +1,15 @@
+C:\Users\alexb\OneDrive\Documents\University\Курсы\Саймон\QueueingTheory\QueueingTheory\bin\Debug\net7.0\QueueingTheory.exe
+C:\Users\alexb\OneDrive\Documents\University\Курсы\Саймон\QueueingTheory\QueueingTheory\bin\Debug\net7.0\QueueingTheory.deps.json
+C:\Users\alexb\OneDrive\Documents\University\Курсы\Саймон\QueueingTheory\QueueingTheory\bin\Debug\net7.0\QueueingTheory.runtimeconfig.json
+C:\Users\alexb\OneDrive\Documents\University\Курсы\Саймон\QueueingTheory\QueueingTheory\bin\Debug\net7.0\QueueingTheory.dll
+C:\Users\alexb\OneDrive\Documents\University\Курсы\Саймон\QueueingTheory\QueueingTheory\bin\Debug\net7.0\QueueingTheory.pdb
+C:\Users\alexb\OneDrive\Documents\University\Курсы\Саймон\QueueingTheory\QueueingTheory\obj\Debug\net7.0\QueueingTheory.csproj.AssemblyReference.cache
+C:\Users\alexb\OneDrive\Documents\University\Курсы\Саймон\QueueingTheory\QueueingTheory\obj\Debug\net7.0\QueueingTheory.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alexb\OneDrive\Documents\University\Курсы\Саймон\QueueingTheory\QueueingTheory\obj\Debug\net7.0\QueueingTheory.AssemblyInfoInputs.cache
+C:\Users\alexb\OneDrive\Documents\University\Курсы\Саймон\QueueingTheory\QueueingTheory\obj\Debug\net7.0\QueueingTheory.AssemblyInfo.cs
+C:\Users\alexb\OneDrive\Documents\University\Курсы\Саймон\QueueingTheory\QueueingTheory\obj\Debug\net7.0\QueueingTheory.csproj.CoreCompileInputs.cache
+C:\Users\alexb\OneDrive\Documents\University\Курсы\Саймон\QueueingTheory\QueueingTheory\obj\Debug\net7.0\QueueingTheory.dll
+C:\Users\alexb\OneDrive\Documents\University\Курсы\Саймон\QueueingTheory\QueueingTheory\obj\Debug\net7.0\refint\QueueingTheory.dll
+C:\Users\alexb\OneDrive\Documents\University\Курсы\Саймон\QueueingTheory\QueueingTheory\obj\Debug\net7.0\QueueingTheory.pdb
+C:\Users\alexb\OneDrive\Documents\University\Курсы\Саймон\QueueingTheory\QueueingTheory\obj\Debug\net7.0\QueueingTheory.genruntimeconfig.cache
+C:\Users\alexb\OneDrive\Documents\University\Курсы\Саймон\QueueingTheory\QueueingTheory\obj\Debug\net7.0\ref\QueueingTheory.dll
