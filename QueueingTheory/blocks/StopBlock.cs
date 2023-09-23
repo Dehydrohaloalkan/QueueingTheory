@@ -41,13 +41,11 @@ public class StopBlock : ITickable
                 
                 if (_isWithTimer)
                 {
-                    _timer++;
-                    if (_timer >= _timerMax) _trySend();
+                    if (++_timer >= _timerMax) _trySend();
                 }
                 else
                 {
-                    var prob = _random.NextDouble();
-                    if (prob > _probability) _trySend();
+                    if (_random.NextDouble() > _probability) _trySend();
                 }
                 break;      
             }

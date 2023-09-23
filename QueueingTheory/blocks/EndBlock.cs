@@ -5,29 +5,19 @@ public class EndBlock : ITickable
     public ITickable NextBlock { get; set; }
     public int WorkTicks { get; set; } = -1;
     public int RequestCount;
-    public readonly List<int> SystemSnapshots;
-    public readonly List<int> QueueSnapshots;
-    
-    public EndBlock()
-    {
-        SystemSnapshots = new List<int>();
-        QueueSnapshots = new List<int>();
-    }
-
+    public readonly List<int> SystemSnapshots = new();
+    public readonly List<int> QueueSnapshots = new();
 
     public void NextTick() {}
 
     public void Accept(Request req)
     {
+        RequestCount++;
         SystemSnapshots.Add(req.TimeInSystem);
         QueueSnapshots.Add(req.TimeIQueue);
-        RequestCount++;
     }
 
-    public bool CanAccept()
-    {
-        return true;
-    }
+    public bool CanAccept() => true;
 
     public int GetRequestCount() => 0;
 }

@@ -4,29 +4,16 @@ namespace QueueingTheory;
 
 public class BlockQueue
 {
-    private readonly List<ITickable> _blocks;
-    private readonly List<ITickable> _reverseBlocks;
+    private readonly List<ITickable> _blocks = new();
+    private List<ITickable> _reverseBlocks;
     private int _tickCount;
-    private readonly List<int> _snapshots;
-    
-    public BlockQueue()
-    {
-        var random = new Random();
-        _blocks = new List<ITickable>();
-        _snapshots = new List<int>();
-        
-        Add(new StartBlock());
-        Add(new StopBlock(0.75, random));
-        Add(new DiscardBlock(0.7, random));
-        Add(new Accumulator(2));
-        Add(new DiscardBlock(0.65, random));
-        Add(new EndBlock());
+    private readonly List<int> _snapshots = new();
 
-        foreach (var block in _blocks)
-        {
-            if (block is DiscardBlock discardBlock) discardBlock.LastBlock = _blocks.Last();
-        }
-        
+    public BlockQueue() => Add(new StartBlock());
+
+    public void Compile()
+    {
+        Add(new EndBlock());
         _reverseBlocks = Enumerable.Reverse(_blocks).ToList();
     }
 
@@ -64,20 +51,37 @@ public class BlockQueue
         }
         P2 /= _tickCount;
         
-        var List = new List<int>();
+        var accumulatorSnapshots = new List<List<int>>();
         foreach (var block in _blocks)
         {
-            if (block is Accumulator accumulator) List.AddRange(accumulator.Snapshots);
+            if (block is Accumulator accumulator)
+            {
+                accumulatorSnapshots.Add(accumulator.Snapshots);
+            }
         }
-        var L1 = List.Average();
+
+        double L1 = 0; 
+        if (accumulatorSnapshots.Count > 0) L1 = accumulatorSnapshots.ToSumList().Average();
+
         var L2 = _snapshots.Average();
 
-        var W1 = (_blocks.Last() as EndBlock)!.QueueSnapshots.Average();
-        var W2 = (_blocks.Last() as EndBlock)!.SystemSnapshots.Average();
+        double W1 = 0;
+        double W2 = 0;
+        
+        if ((_blocks.Last() as EndBlock)!.QueueSnapshots.Count > 0)
+        {
+            W1 = (_blocks.Last() as EndBlock)!.QueueSnapshots.Average();    
+        }
 
+        if ((_blocks.Last() as EndBlock)!.SystemSnapshots.Count > 0)
+        {
+            W2 = (_blocks.Last() as EndBlock)!.SystemSnapshots.Average();    
+        }
+        
         var KList = _blocks
             .Select((block) => block.WorkTicks / (double)_tickCount)
             .Where(x => x >= 0)
+            .Skip(1)
             .ToList();
         
         return new Values

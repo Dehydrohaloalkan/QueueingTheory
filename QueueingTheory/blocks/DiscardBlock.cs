@@ -6,7 +6,6 @@ public class DiscardBlock : ITickable
 {
     public ITickable NextBlock { get; set; }
     public int WorkTicks { get; set; }
-    public ITickable LastBlock { get; set; }
     private Request? _request;
     private readonly bool _isWithTimer;
     private readonly int _timerMax;
@@ -49,7 +48,7 @@ public class DiscardBlock : ITickable
     
     private void _trySend()
     {
-        (NextBlock.CanAccept() ? NextBlock : LastBlock).Accept(_request);  
+        if (NextBlock.CanAccept()) NextBlock.Accept(_request);
         _request = null;
     }
 
